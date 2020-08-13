@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ju.dao.ShippingDao">
+<!-- int insert(Shipping shipping);,jdbcType=INTEGER -->
+	<insert id="insert" parameterType="shipping">
+		insert into ju_shipping
+		(id,user_id,receiver_name,receiver_phone,receiver_mobile,receiver_province,receiver_city,
+			receiver_district,receiver_address,receiver_zip,
+			create_time,update_time
+			)
+		VALUES
+		(#{id},#{userId},#{receiverName},#{receiverPhone},
+			#{receiverMobile},#{receiverProvince},#{receiverCity},
+			#{receiverCistrict},#{receiverAddress},#{receiverZip},now(),now())
+	</insert>
+	<!-- int updateShippingByIdAndUserId(Shipping shipping); -->
+	<update id="updateShippingByIdAndUserId" parameterType="shipping">
+		update ju_shipping
+		<set>
+			<if test="receiverName!=null"></if>
+				receiver_name=#{receiverName},
+			<if test="receiverPhone!=null">
+				receiver_phone=#{receiverPhone},</if>
+			<if test="receiverMobile!=null">
+				receiver_mobile=#{receiverMobile},</if>
+			<if test="receiverProvince!=null">
+				receiver_province=#{receiverProvince},</if>
+			<if test="receiverCity!=null">
+				receiver_city=#{receiverCity},</if>
+			<if test="receiverCistrict!=null">
+				receiver_district=#{receiverCistrict},</if>
+			<if test="receiverAddress!=null">
+				receiver_address=#{receiverAddress},</if>
+			<if test="receiverZip!=null">
+				receiver_zip=#{receiverZip}</if>
+		</set>
+			where id=#{id} and user_id=#{userId}
+	
+	</update>
+	
+	<!-- Shipping selectShippingById(@Param("userId") Integer userId,@Param("shippingId")Integer shippingId); -->
+	<resultMap type="com.ju.entity.Shipping" id="BaseResultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id"/>
+		<result property="receiverName" column="receiver_name"/>
+		<result property="receiverPhone" column="receiver_phone"/>
+		<result property="receiverMobile" column="receiver_mobile"/>
+		<result property="receiverProvince" column="receiver_province"/>
+		<result property="receiverCity" column="receiver_city"/>
+		<result property="receiverCistrict" column="receiver_district"/>
+		<result property="receiverProvince" column="receiver_province"/>
+		<result property="receiverAddress" column="receiver_address"/>
+		<result property="receiverZip" column="receiver_zip"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+	<!-- 查询全部或一个都可 -->
+	 <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+		select * from ju_shipping
+		<where>
+			<if test="shippingId!=null">
+				and	id=#{shippingId}
+			</if>
+			<if test="userId!=null">
+				and	user_id=#{userId}
+			</if>
+		</where>
+	</select> 
+	<!-- 第二List<Shipping> selectAllByuserId(Integer userId); 为了删除-->
+	 <select id="selectAllByuserId" parameterType="map" resultMap="BaseResultMap">
+		select * from ju_shipping
+		<where>
+			<if test="userId!=null">
+				and	user_id=#{userId}
+			</if>
+		</where>
+	</select> 
+	<!-- 查询一个 -->
+	<select id="selectShippingById" parameterType="map" resultMap="BaseResultMap">
+		select * from ju_shipping
+		<where>
+			<if test="shippingId!=null">
+				and	id=#{shippingId}
+			</if>
+			<if test="userId!=null">
+				and	user_id=#{userId}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 批量删除int delShippingByShippingIds(@Param("userId") Integer userId,@Param("shippingIdList") List<String> shippingIdList); -->
+	<delete id="delShippingByShippingIds" parameterType="map">
+		delete from ju_shipping
+		where user_id=#{userId}
+		<if test="shippingIdList!=null">
+			and id in
+			<foreach collection="shippingIdList" index="index" item="item"
+				open="(" separator="," close=")" >
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+	
+	
+	
+	
+	
+	
+</mapper>

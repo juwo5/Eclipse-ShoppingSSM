@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 管controller spmvc拿类替代servlet-->
+	<context:component-scan base-package="com.ju.controller"></context:component-scan>
+	<!-- springsmvc拿类替代servlet-->
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:default-servlet-handler/>
+	<!-- <mvc:resources location="/upload/" mapping="/upload/**"></mvc:resources> -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- 扫描到WebContent/views/*.jsp -->
+		<property name="prefix" value="WEB-INF/"></property>
+		<property name="suffix" value=".html"></property>
+	</bean>
+	
+	<!-- 上传文件 id必须文件上传大小，字节5000000b=488kb=0.47mb//10兆=10485760b-->
+	<bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760"></property>
+	</bean>
+	
+	
+
+	
+</beans>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ju.dao.CategoryDao">
+<!-- List<Category> getAllCategory(); -->
+	<select id="getAllCategory" resultType="category">
+		select * from ju_category where parent_id=0
+	</select>
+	<!-- Boolean addCategory(Category category); 占位符写实体变量-->
+	<insert id="addCategory"   parameterType="category">
+		INSERT INTO ju_category
+		(parent_id,name,status,create_time,update_time,is_leaf)
+		VALUES
+		(#{parent_id},#{name},#{status},now(),now(),#{is_leaf})
+	</insert>
+	<!-- String getCateNameByCid(Integer cId); -->
+	<select id="getCateNameByCid" resultType="string" parameterType="Integer"> 
+		select name from ju_category where id=#{value}
+	</select>
+	
+	<!-- List<RCategory> getChildCateByCid(Integer cId); -->
+	<!-- 当前类别下的自类别 -->
+	<resultMap type="com.ju.entity.RCategory" id="categoryMap">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="parent_id" column="parent_id"/>
+		<collection property="cates"  
+					ofType="com.ju.entity.RCategory" 
+					javaType="java.util.List" 
+					select="getById" column="id">
+		</collection>
+	</resultMap>
+	<select id="getById" parameterType="int" resultMap="categoryMap">
+	 SELECT * FROM ju_category
+	 WHERE parent_id = #{value}
+	</select>
+	<select id="getChildCateByCid" parameterType="int" resultMap="categoryMap">
+		select * from ju_category
+		WHERE id = #{value}
+	</select>
+	<!-- List<Category> getLeafCate(); -->
+	<select id="getLeafCate" resultType="category">
+		select * from ju_category
+		where is_leaf=0
+	</select>
+	
+	
+	<!-- 一级和对应的二级 -->
+	<!-- List<Category> getRootCate(); -->
+	<!-- <select id="getRootCate" resultType="category">
+		select * from ju_category 
+		where parent_id=0
+	</select> -->
+	<!-- List<Category> getSecCate(Integer pId); -->
+	<!-- <select id="getSecCate" resultType="category" parameterType="int">
+		select * from ju_category 
+		where parent_id=？ 
+	</select>-->
+	<!-- 如果pid是0，则查询的是一级类别。如果不是0,则能查询参数 -->
+	<select id="getRootCate" resultType="category">
+		select * from ju_category 
+		<where>
+			<if test="pid==0">
+				and	parent_id=0
+			</if>
+			<if test="pid!=0">
+				and parent_id=#{pid}
+			</if>
+		</where>
+	</select>
+	
+	
+	
+	
+</mapper>

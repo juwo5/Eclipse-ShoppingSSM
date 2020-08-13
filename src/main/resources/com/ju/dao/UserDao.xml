@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ju.dao.UserDao">
+	<!-- List<User> queryAllUser(); -->
+	<select id="queryAllUser" resultType="user">
+		SELECT * FROM shopping.ju_user
+	</select>
+	<!-- User queryUserByUserNameAndPsw(User user); -->
+	<select id="queryUserByUserNameAndPsw" resultType="user" parameterType="user">
+		SELECT * FROM shopping.ju_user
+		where username=#{userName} and password=#{passWord}
+		and role=1
+	</select>
+	
+	<!-- 普通用户 -->
+	
+	
+	<!-- Boolean addOneUser(User user); -->
+	<insert id="addOneUser" parameterType="user"> 
+		INSERT INTO shopping.ju_user
+		(username,password,email,create_time,update_time)
+		VALUES
+		(#{userName},#{passWord},#{email},now(),now())
+	</insert>
+	<!-- User checkNameOrEmailIsExists(User user); -->
+	<select id="checkNameOrEmailIsExists" parameterType="user"
+		resultType="user">
+		SELECT * FROM ju_user
+		<where>
+			<if test="userName != null">
+				AND username = #{userName}
+			</if>
+			<if test="email != null">
+				AND email = #{email}
+			</if>
+		</where>
+	</select>
+	<!-- public User queryNameAndPsw(User user); -->
+	<select id="queryNameAndPsw"  resultType="user" parameterType="user">
+		SELECT * FROM shopping.ju_user
+		where username=#{userName} and password=#{passWord}
+		and role=0
+	</select>	
+	
+</mapper>

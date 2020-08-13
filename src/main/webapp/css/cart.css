@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+.option{
+	border:1px solid black;
+	width:17px;
+	height:16px;
+	display:inline-block;
+}

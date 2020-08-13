@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>电商平台后台管理</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.css" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/toastr.css" />
+<link rel="stylesheet" href="css/fullcalendar.css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.knob.js"></script>
+<!--    <script src="http://d3js.org/d3.v3.min.js"></script> -->
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toastr.js"></script>
+<script src="js/jquery.tablesorter.min.js"></script>
+<script src="js/jquery.peity.min.js"></script>
+<script src="js/fullcalendar.min.js"></script>
+<script src="js/gcal.js"></script>
+<script src="js/setup.js"></script>
+</head>
+<body>
+	<!-- header部分 -->
+	<div id="in-nav">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<ul class="pull-right">
+						<li><a href="#">链接1</a></li>
+						<li><a href="#">链接2</a></li>
+						<li><a href="#">链接3</a></li>
+						<li><a href="login.html">登录</a></li>
+					</ul>
+					<a id="logo" href="index.html">
+						<h4>
+							电商平台后台<strong>管理</strong>
+						</h4>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="in-sub-nav">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<ul>
+						<li><a href="index.html" class="active"><i
+								class="batch home"></i><br />主页</a></li>
+						<li><span class="label label-important pull-right">08</span><a
+							href="admins.html"><i class="batch stream"></i><br />管理员列表</a></li>
+						<li><a href="users.html"><i class="batch users"></i><br />用户列表</a></li>
+						<li><a href="categories.html"><i class="batch forms"></i><br />类别列表</a></li>
+						<li><a href="products.html"><i class="batch quill"></i><br />商品列表</a></li>
+						<li><span class="label label-important pull-right">04</span><a
+							href="orders.html"><i class="batch plane"></i><br />订单列表</a></li>
+						<li><a href="anothers.html"><i class="batch calendar"></i><br />其它扩展功能</a></li>
+						<li><a href="settings.html"><i class="batch settings"></i><br />系统设置</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page">
+		<div class="page-container">
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<a href="#newUserModal" data-toggle="modal" class="btn pull-right">添加根类别</a>
+						<h4 class="header">类别列表</h4>
+						<table class="table table-striped sortable">
+							<thead>
+								<tr>
+									<th>商品类别</th>
+									<th>类别ID</th>
+									<th>类别名称</th>
+									<th>上一级类别ID</th>
+									<th>是否是叶子节点</th>
+								</tr>
+							</thead>
+							<tbody id="tb">
+
+							</tbody>
+
+						</table>
+						<div class="pagination pagination-centered">
+							<ul id="pages">
+								<!-- <li class="disabled"><a href="#">&laquo;</a></li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li><a href="#">&raquo;</a></li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="newUserModal" class="modal hide fade">
+				<div class="modal-header">
+					<button type="button" data-dismiss="modal" aria-hidden="true"
+						class="close">&times;</button>
+					<h3>添加根类别</h3>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" action="#" method="post">
+						<div class="control-group">
+							<label for="inputEmail" class="control-label">类别名称</label>
+							<div class="controls">
+								<input id="inputEmail" name="name" type="text"
+									placeholder="请输根类别" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="inputCurrentPassword" class="control-label">类别描述
+							</label>
+							<div class="controls">
+								<textarea rows="5" cols="20" name="descr"></textarea>
+							</div>
+						</div>
+
+
+						<div class="modal-footer">
+							<a href="#" data-dismiss="modal" class="btn">关闭</a><input
+								type="submit" class="btn btn-primary" value="添加" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<p class="pull-right">版权所有&nbsp;&nbsp;&nbsp;可以翻版</p>
+					<p>&copy; Copyright 2018 Somnus</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+<script src="js/d3-setup.js"></script>
+<script>
+	protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+	address = protocol + window.location.host + window.location.pathname
+			+ '/ws';
+	socket = new WebSocket(address);
+	socket.onmessage = function(msg) {
+		msg.data == 'reload' && window.location.reload()
+	}
+</script>
+<script type="text/javascript">
+/* 	var pageNowNum = 1;
+	var pageSize = 3;
+	var pliesNum = 0;
+	var StrPlies = "*-*";
+	var Boot = [];
+	//封装分页的方法
+	function page(pn) {
+		pageNowNum = pn;
+		$.ajax({
+					type : "POST",
+					url : "manage/category/list.do",
+					data : {
+						pageNum : pn,
+						pageSize : "3"
+					},
+					dataType : "Json",
+					success : function(response) {
+						//console.log(response);
+						pageNum = response.data.pageNum;
+						dataNowNum = (pageNum - 1) * pageSize;
+						var data = response.data.list;
+						$("#tb").empty();
+						for (var i = 0; i < data.length; i++) {
+							var tableRow = $("<tr onclick='findCateChild("
+									+ data[i].id + ",this," + (i + dataNowNum)
+									+ ")'></tr>");
+							tableRow.append("<td>*--*</td>");
+							tableRow.append("<td>" + data[i].id + "</td>");
+							tableRow.append("<td>" + data[i].name + "</td>");
+							tableRow.append("<td>" + data[i].parent_id
+									+ "</td>");
+							if (data[i].is_leaf == 0) {
+								tableRow.append("<td>是</td>");
+							} else {
+								tableRow.append("<td>否</td>");
+							}
+							tableRow
+									.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li><a href='add_category_child.html?pId="
+											+ data[i].id
+											+ "'>添加子类别</a> <a href='#'>修改</a> <a href='#'>删除</a></li></ul></div></td>");
+							$("#tb").append(tableRow);
+							//Boot.push(0);
+							Boot[i + dataNowNum] = 0;
+						}
+						//console.log(Boot);
+						if (data.length < pageSize) {
+							//console.log(pageSize-data.length);
+							for (var i = 0; i < (pageSize - data.length); i++) {
+								var tableRow = $("<tr></tr>");
+								tableRow.append("<td>-</td>");
+								tableRow.append("<td>" + "-" + "</td>");
+								tableRow.append("<td>" + "-" + "</td>");
+								tableRow.append("<td>" + "-" + "</td>");
+								tableRow.append("<td>" + "-" + "</td>");
+								tableRow
+										.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li><a href='#'>添加子类别</a> <a href='#'>修改</a> <a href='#'>删除</a></li></ul></div></td>");
+								$("#tb").append(tableRow);
+							}
+						}
+
+						//写分页导航
+						var nums = response.data.navigatepageNums;
+						//console.log(nums.length);
+						$("#pages").empty();
+						$("#pages").append("<li><a>&laquo;</a></li>");
+
+						for (var i = 0; i < nums.length; i++) {
+							$("#pages").append(
+									"<li onclick='page(" + nums[i] + ")'><a>"
+											+ nums[i] + "</a></li>");
+
+						}
+						$("#pages").append("<li><a>&raquo;</a></li> ");
+
+					},
+					error : function() {
+						alert("请求失败！！~");
+					}
+				})
+	}
+	page(1);
+
+	//显示子商品
+	function addTreeChild(data, tr) {
+		//console.log(data);
+		//StrPlies = StrPlies+"-*";
+		if (data.length > 0) {
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].cates) {
+					var tableRow = $("<tr></tr>");
+					tableRow.append("<td>" + StrPlies + "</td>");
+					tableRow.append("<td>" + data[i].id + "</td>");
+					tableRow.append("<td>" + data[i].name + "</td>");
+					tableRow.append("<td>" + data[i].parent_id + "</td>");
+					if (data[i].is_leaf == 0) {
+						tableRow.append("<td>是</td>");
+					} else {
+						tableRow.append("<td>否</td>");
+					}
+					tableRow
+							.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li><a href='add_category_child.html?pId="
+									+ data[i].id
+									+ "'>添加子类别</a> <a href='#'>修改</a> <a href='#'>删除</a></li></ul></div></td>");
+					$(tr).after(tableRow);
+					addTreeChild(data[i].cates, tableRow, -1);
+				}
+			}
+		}
+	}
+
+	function findCateChild(cid, tr, bootFlag) {
+		console.log(Boot);
+		if(Boot[bootFlag] == -1){
+			console.log("-1");
+			//$(tr tb).empty();
+		}
+		if (Boot[bootFlag] == 0 || bootFlag == -1) {
+			if (bootFlag != -1){
+				StrPlies = "--";
+				Boot[bootFlag] = -1;
+			}
+			//获取当前行的cid去执行查询
+			$.ajax({
+				type : "POST",
+				url : "manage/category/get_deep_category.do",
+				data : {
+					cId : cid
+				},
+				dataType : "Json",
+				success : function(response) {
+					addTreeChild(response.data[0].cates, tr);
+					//console.log(response);
+
+				}
+			})
+		}
+	} */
+	//第二次应用
+	$.ajax({
+		type:"get",
+		url:"manage/category/get_allcategory.do",
+		dataType:"json",
+		success:function(response){
+			var cateList=response.data;
+			for(var i in cateList){
+				var ctr=$("<tr onclick='findCateChild("+cateList[i].id+",this)'></tr>");
+				ctr.append("<td><a>"+cateList[i].name+"的子类别"+"</a></td>");
+				ctr.append("<td>"+cateList[i].id+"</td>");
+				ctr.append("<td>"+cateList[i].name+"</td>");
+				ctr.append("<td>"+cateList[i].parent_id+"</td>");
+				if(cateList[i].is_leaf){
+					ctr.append("<td>是</td>");
+				}else{
+					ctr.append("<td>否</td>");
+				};
+				ctr.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li><a href='add_category_child.html?pId="
+						+ cateList[i].id
+						+ "'>添加子类别</a> <a href='#'>修改</a> <a href='#'>删除</a></li></ul></div></td>");
+				$("#tb").append(ctr);
+			}
+		}
+	})
+	function addTreeChild(data,tr){
+		if(data.length>0){
+			for(var i=0;i<data.length;i++){
+				if(data[i].cates){
+					var trRow=$("<tr></tr>");
+					trRow.append("<td></td>");
+					trRow.append("<td>"+data[i].id+"</td>");
+					trRow.append("<td>"+data[i].name+"</td>");
+					trRow.append("<td>"+data[i].parent_id+"</td>");
+					if(data[i].is_leaf==0){
+						trRow.append("<td>是</td>");
+					}else{
+						trRow.append("<td>否</td>");
+					};
+					trRow.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li><a href='add_category_child.html?pId="
+							+ data[i].id
+							+ "'>添加子类别</a> <a href='#'>修改</a> <a href='#'>删除</a></li></ul></div></td>");
+					$(tr).after(trRow);
+				}
+			}
+		}
+	}
+
+	function findCateChild(cid,tr){
+		//获取到当前行的cid
+		$.ajax({
+			url:"manage/category/get_deep_category.do",
+			type:"get",
+			data:{
+				cId:cid
+			},
+			dataType:'json',
+			success:function(response){
+				addTreeChild(response.data[0].cates,tr);
+				console.log(response);
+			}
+			
+		})
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	
+</script>
+</html>

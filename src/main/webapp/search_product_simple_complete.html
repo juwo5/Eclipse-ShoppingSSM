@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>电商平台后台管理</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.css" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/toastr.css" />
+<link rel="stylesheet" href="css/fullcalendar.css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.knob.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toastr.js"></script>
+<script src="js/jquery.tablesorter.min.js"></script>
+<script src="js/jquery.peity.min.js"></script>
+<script src="js/fullcalendar.min.js"></script>
+<script src="js/gcal.js"></script>
+<script src="js/setup.js"></script>
+
+</head>
+<body>
+
+	<!-- header部分 -->
+	<div id="in-nav">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<ul class="pull-right">
+						<li><a href="#">链接1</a></li>
+						<li><a href="#">链接2</a></li>
+						<li><a href="#">链接3</a></li>
+						<li><a href="login.html">登录</a></li>
+					</ul>
+					<a id="logo" href="index.html">
+						<h4>
+							电商平台后台<strong>管理</strong>
+						</h4>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="in-sub-nav">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<ul>
+						<li><a href="index.html" class="active"><i
+								class="batch home"></i><br />主页</a></li>
+						<li><span class="label label-important pull-right">08</span><a
+							href="admins.html"><i class="batch stream"></i><br />管理员列表</a></li>
+						<li><a href="users.html"><i class="batch users"></i><br />用户列表</a></li>
+						<li><a href="categories.html"><i class="batch forms"></i><br />类别列表</a></li>
+						<li><a href="products.html"><i class="batch quill"></i><br />商品列表</a></li>
+						<li><span class="label label-important pull-right">04</span><a
+							href="orders.html"><i class="batch plane"></i><br />订单列表</a></li>
+						<li><a href="anothers.html"><i class="batch calendar"></i><br />其它扩展功能</a></li>
+						<li><a href="settings.html"><i class="batch settings"></i><br />系统设置</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page">
+
+		<div class="page-container">
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<h4 class="header">商品搜索结果</h4>
+
+						<a class="btn btn-info" href="search_product_complex.html">继续搜索</a>
+
+						<table class="table table-striped sortable">
+							<thead>
+								<tr>
+									<th>商品 ID</th>
+									<th>商品名称</th>
+									<th>商品描述</th>
+									<th>商品价格</th>
+									<th>所属类别</th>
+									<th>商品图片</th>
+									<th>商品库存</th>
+									<th>商品状态</th>
+									<th>上架日期</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="tb">
+
+							</tbody>
+						</table>
+						<div class="pagination pagination-centered">
+							<ul id="pages">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<p class="pull-right">版权所有&nbsp;&nbsp;&nbsp;可以翻版</p>
+					<p>&copy; Copyright 2018 Somnus</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+<script src="js/d3-setup.js"></script>
+<script>
+	protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+	address = protocol + window.location.host + window.location.pathname
+			+ '/ws';
+	socket = new WebSocket(address);
+	socket.onmessage = function(msg) {
+		msg.data == 'reload' && window.location.reload()
+	}
+</script>
+
+<script type="text/javascript">
+/* 	var hrefVal = decodeURI(window.location.href);
+	var keyWord = hrefVal.split("?")[1].split("=")[1];
+	var pageNowNum = 1;
+	var pageSize = 4;
+	var currentPage;
+	var Boot = []; */
+/* 	$.ajax({
+		type : "POST",
+		url : "manage/product/search.do",
+		data : {
+			proName : keyWord
+		},
+		dataType : "Json",
+		success : function(response) {
+			//console.log(response);
+		}
+	}) */
+
+/* 	//封装分页的方法
+	function page(pn) {
+		pageNowNum = pn;
+		currentPage = pn;
+		$.ajax({
+			type : "POST",
+			url : "manage/product/search.do",
+			data : {
+				proName : keyWord,
+				pageNum : pn,
+				pageSize : "4"
+			},
+			dataType : "Json",
+			success : function(response) {
+				console.log(response);
+				var data = response.data.list;
+				$("#tb").empty();
+				pageNum = response.data.pageNum;
+				dataNowNum = (pageNum - 1) * pageSize;
+				for (var i = 0; i < data.length; i++) {
+					var tableRow = $("<tr></tr>");
+					tableRow.append("<td>" + data[i].id + "</td>");
+					tableRow.append("<td>" + data[i].name + "</td>");
+					tableRow.append("<td>" + data[i].detail + "</td>");
+					tableRow.append("<td>" + data[i].price + "</td>");
+					tableRow.append("<td>" + data[i].category_id
+							+ "</td>");
+					imgSrc = "/upload/" + data[i].main_image;
+					tableRow.append("<td><img onclick='showImg(this,"
+									+ (i + dataNowNum)
+									+ ")' src='/upload/"
+									+ data[i].main_image
+									+ "' large-src='/upload/"
+									+ data[i].main_image
+									+ "' id='demo-1' style='height:30px'/></td>");
+					tableRow.append("<td>" + data[i].stock + "</td>");
+					var statusVal;
+					switch (data[i].status) {
+					case 1:
+						statusVal = "在售";
+						break;
+					case 2:
+						statusVal = "下架";
+						break;
+					case 3:
+						statusVal = "删除";
+						break;
+					}
+					tableRow.append("<td>" + statusVal + "</td>");
+					tableRow.append("<td>" + data[i].create_time
+							+ "</td>");
+					tableRow
+							.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li><a href='#'>添加子类别</a> <a href='#'>修改</a> <a href='#'>删除</a></li></ul></div></td>");
+					$("#tb").append(tableRow);
+					Boot[i + dataNowNum] = 0;
+				}
+				if (data.length < pageSize) {
+					console.log(pageSize - data.length);
+					for (var i = 0; i < (pageSize - data.length); i++) {
+						var tableRow = $("<tr></tr>");
+						tableRow.append("<td>" + "-" + "</td>");
+						tableRow.append("<td>" + "-" + "</td>");
+						tableRow.append("<td>" + "-" + "</td>");
+						tableRow.append("<td>" + "-" + "</td>");
+						tableRow.append("<td>" + "-" + "</td>");
+						tableRow.append("<td>" + "-" + "</td>");
+						tableRow.append("<td>" + "-" + "</td>");
+						tableRow.append("<td>" + "-" + "</td>");
+						tableRow.append("<td>" + "-" + "</td>");
+						tableRow
+								.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li><a href='#'>添加子类别</a> <a href='#'>修改</a> <a href='#'>删除</a></li></ul></div></td>");
+						$("#tb").append(tableRow);
+					}
+				}
+
+				//写分页导航
+				var nums = response.data.navigatepageNums;
+				//console.log(nums.length);
+				$("#pages").empty();
+				if (currentPage == response.data.firstPage) {
+					$("#pages").append("<li><a>&laquo;</a></li>");
+				} else {
+					$("#pages").append(
+							"<li onclick='page(" + (currentPage - 1)
+									+ ")'><a>&laquo;</a></li>");
+				}
+
+				for (var i = 0; i < nums.length; i++) {
+					$("#pages").append(
+							"<li onclick='page(" + nums[i] + ")'><a>"
+									+ nums[i] + "</a></li>");
+				}
+
+				if (currentPage == response.data.lastPage) {
+					$("#pages").append("<li><a>&raquo;</a></li>");
+				} else {
+					$("#pages").append(
+							"<li onclick='page(" + (currentPage + 1)
+									+ ")'><a>&raquo;</a></li>");
+				}
+			}
+		})
+	}
+
+	function showImg(imgBox, bootFlag) {
+		imgSrc = $(imgBox).attr("src");
+		console.log(imgSrc);
+		if (Boot[bootFlag] == 0) {
+			Boot[bootFlag] = -1;
+			var tableRow = $("<tr onclick='emptyThis(this," + bootFlag
+					+ ")'></tr>");
+			tableRow.append("<td><img src="+imgSrc+" /></td>");
+			$(imgBox).after(tableRow);
+			//$(tr tb).empty();
+		}
+	}
+
+	function emptyThis(imgBox, bootFlag) {
+		Boot[bootFlag] = 0;
+		$(imgBox).empty();
+	}
+	page(1); */
+	
+	//第二次
+	var href=window.location.href;
+	var keyWord=decodeURI(href.split("?")[1].split("=")[1]);
+	var currentPage; 
+	function page(pn,ps){
+		currentPage=pn;
+		$.ajax({
+			url:"manage/product/search.do",
+			type:"post",
+			dataType:"json",
+			data:{
+				pageNum:pn,
+				pageSize:ps,
+				proName:keyWord
+			},
+			success:function(response){
+				console.log(response);
+				var dataList=response.data.list;
+				$("#tb").empty();
+				for(var i=0;i<dataList.length;i++){
+					var trRow=$("<tr></tr>");
+					trRow.append("<td>" + dataList[i].id + "</td>");
+					trRow.append("<td>" + dataList[i].name + "</td>");
+					trRow.append("<td>" + dataList[i].detail + "</td>");
+					trRow.append("<td>" + dataList[i].price + "</td>");
+					trRow.append("<td>" + dataList[i].category_id+ "</td>");
+					trRow.append("<td><img style='height:50px;width:50px;border-radius:50%;' alt="+dataList[i].main_image+" src=/upload/" + dataList[i].main_image+ "></img></td>");
+					trRow.append("<td>" + dataList[i].stock + "</td>");
+					var statusVal;
+					switch(dataList[i].status){
+						case 1:
+							statusVal = "在售";
+							break;
+						case 2:
+							statusVal = "下架";
+							break;
+						case 3:
+							statusVal = "删除";
+							break;
+					}
+					trRow.append("<td>"+statusVal+"</td>");
+					
+					trRow.append("<td>" + dataList[i].create_time + "</td>");
+					trRow.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li><a href='#'>修改</a> <a onclick='updateProStatus("
+							+ dataList[i].id
+							+ ","
+							+ dataList[i].status
+							+ ")' href='#'>变更状态</a> <a href='#'>删除</a></li></ul></div></td>");
+					$("#tb").append(trRow);
+				}
+				var pageMenu=response.data.navigatepageNums
+				$("#pages").empty();
+				if (currentPage == response.data.firstPage) {
+					$("#pages").append("<li><a>&laquo;</a></li>");
+				} else {
+					$("#pages").append("<li onclick='page(" + (currentPage - 1)
+									+ ")'><a>&laquo;</a></li>");
+				}
+				for(var i=0;i<pageMenu.length;i++){
+					console.log(pageMenu[i]);
+					$("#pages").append("<li><a onclick='page("+pageMenu[i]+")',4>"+pageMenu[i]+"</a></li>");
+				}
+				if (currentPage == response.data.lastPage) {
+					$("#pages").append("<li><a>&raquo;</a></li>");
+				} else {
+					$("#pages").append("<li onclick='page("+(currentPage + 1)+")'><a>&raquo;</a></li>");
+				}
+			}
+		})
+		
+	}
+	page(1,4);
+	
+	
+</script>
+</html>

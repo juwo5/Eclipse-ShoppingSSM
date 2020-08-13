@@ -1,0 +1,49 @@
+做的模块：cart,category,product,user
+没在前端：shipping
+未做：pay(order) 支付和订单
+★
+	まだやってない、関係ない
+JSONData.java
+PayContoller.java
+OrderDao.java
+OrderItemDao.java
+Order.java
+OrderItem.java
+PayService.java
+PayServiceImpl.java
+AliOssUtils.java
+FileItem.java
+OrderDao.xml
+OrderItemDao.xml
+★
+
+1.数据库设计：用户表，分类表，商品表，购物车表，订单表，地址表，支付表。
+2.用户模块：管理员和普通用户role
+3.分类模块：category目录：一级和二级。表有id,父id相关，几级目录
+4.商品管理模块
+5.购物车模块：用户必须先登录，有用户id(Session域)
+6.订单模块:
+		1.从购物车获取勾选的商品；
+		2.判断商品合法性：订单总价，生产订单明细
+		3.订单号，放入订单明细
+		4.批量插入
+		5.减少库存
+		6.清空购物车
+7.收获地址模块
+		新增，修改，主键查询，查询所有，删除（批量），分割 Splitter 或对象.split()
+8.支付模块
+	1支付方式：支付宝，微信，银联
+		支付宝沙箱环境
+	2内网穿透
+	 	Ngrok:通过外网的一个地址能访问自己的支付
+	支付宝开放平台
+		沙箱环境 参数：注册和设置
+		注册：支付宝帐号
+		支付能力：当面，手机网址，电脑网站，app。
+	连接沙箱，二维码
+	
+	
+	
+	
+	
+	

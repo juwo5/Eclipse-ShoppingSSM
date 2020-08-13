@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ju.dao.ProductDao">
+
+	<!-- 商品列表分页查询 public List<Product> pageQueryPro(); -->
+	<select id="pageQueryPro" resultType="product">
+		select * from ju_product
+		order by update_time desc
+	</select>
+	<!-- 模糊public List<Product> searchProByPage(Product product); -->
+	<select id="searchProByPage" resultType="product" parameterType="product">
+		select * from ju_product
+		<where>
+			<if test="id!=null">id=#{id} </if>
+			<if test="name!=null">and name like '%${name}%'</if>
+		</where>
+	</select>
+	<!--修改下架 public Boolean updateProStatus(Product product);  -->
+	<update id="updateProStatus" parameterType="product">
+		update  ju_product 
+		set status=#{status} 
+		where id=#{id}
+	</update>
+	<!--添加图片等一个类 public Boolean addOneProduct(Product product);  -->
+	<insert id="addOneProduct" parameterType="product">
+		insert into ju_product
+		(category_id,name,detail,subtitle,main_image,sub_images,price,stock,status,create_time,update_time)
+		values
+		(#{category_id},#{name},#{detail},#{subtitle},#{main_image},#{sub_images},#{price},#{stock},#{status},NOW(),NOW())
+	</insert>
+	
+	<!-- public List<Product> queryProByCIdAndKeyWord(Product product); -->
+	<select id="queryProByCIdAndKeyWord"  parameterType="product" resultType="product">
+		select * from ju_product
+		<where>
+			<if test="category_id!=null">
+				and category_id=#{category_id}
+			</if>
+			<if test="name!=null">
+				and name  like concat('%',#{name},'%')
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+	<!--public Product queryProInfoByPId(Integer pId);-->
+	<select id="queryProInfoByPId"   parameterType="int" resultType="product">
+		select * from ju_product
+		where id=#{value}
+	
+	</select>
+		
+	<!-- public Boolean updateStockFromProduct(Integer proId,Integer stock); -->
+	<update id="updateStockFromProduct" parameterType="map">
+		UPDATE ju_product
+		SET stock = stock - #{num}
+		WHERE id = #{proId}
+	</update>
+		
+		
+		
+		
+		
+		
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ju.dao.CartDao">
+	<insert id="addOneCartProduct" parameterType="cartProductVo">
+		insert into ju_cart
+		(user_id,product_id,quantity,checked,create_time,update_time)
+		VALUES
+		(#{userId},#{productId},#{quantity},1,now(),now())
+	</insert>
+	
+	<!-- public List<CartProductVo> getCartProductByUserId(Integer userId); 
+		产品表 和购物表userid product_id
+	  -->
+	 <select id="getCartProductByUserId" parameterType="int" resultType="cartProductVo">
+		select
+		ju_cart.id 'id',user_id 'userId',product_id
+		'productId',
+		quantity,name 'productName',subtitle 'productSubtitle',
+		main_image 'productMainImage',price 'productPrice',status 'productStatus',
+		stock 'productStock',checked 'productChecked'
+		FROM ju_cart,ju_product
+		WHERE ju_cart.product_id =ju_product.id
+		AND user_id = #{value}
+	</select>
+	<!-- public Boolean removeOneProduct(@Param("userId")Integer userId,@Param("proId") Integer proId); -->
+	<delete id="removeOneProduct" parameterType="map">
+		delete from ju_cart
+		where user_id=#{userId}
+		and product_id=#{proId}
+	</delete>
+	<!-- public Boolean updateProFromCart(@Param("userId")Integer userId,@Param("proId") Integer proId,@Param("count") Integer count); -->
+	<update id="updateProFromCart" parameterType="map">
+		update  ju_cart
+		set quantity=#{count}
+		where product_id=#{proId}
+		and user_id=#{userId}
+
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

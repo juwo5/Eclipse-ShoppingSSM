@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>电商平台订单页面</title>
+<meta charset="utf-8" />
+<!--js-->
+<script src="../js/jquery-1.8.2.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/jquery.easing.1.3.js"></script>
+<script src="../js/ddsmoothmenu.js"></script>
+<script src="../js/jquery.flexslider.js"></script>
+<script src="../js/jquery.elastislide.js"></script>
+<script src="../js/jquery.jcarousel.min.js"></script>
+<script src="../js/jquery.accordion.js"></script>
+<script src="../js/light_box.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".inline").colorbox({
+			inline : true,
+			width : "50%"
+		});
+	});
+</script>
+<!--end js-->
+
+<!-- Mobile Specific Metas ================================================== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS ================================================== -->
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/orange.css">
+<link rel="stylesheet" href="../css/skeleton.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/ddsmoothmenu.css" />
+<link rel="stylesheet" href="../css/elastislide.css" />
+<link rel="stylesheet" href="../css/home_flexslider.css" />
+
+<link rel="stylesheet" href="../css/light_box.css" />
+<script src="../js/html5.js"></script>
+
+<link rel="stylesheet" href="../css/tasp.css" />
+<link href="../css/orderconfirm.css" rel="stylesheet" />
+
+<style>
+#page {
+	width: auto;
+}
+
+#comm-header-inner, #content {
+	width: 950px;
+	margin: auto;
+}
+
+#logo {
+	padding-top: 26px;
+	padding-bottom: 12px;
+}
+
+#header .wrap-box {
+	margin-top: -67px;
+}
+
+#logo .logo {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	width: 140px;
+	height: 35px;
+	font-size: 35px;
+	line-height: 35px;
+	color: #f40;
+}
+
+#logo .logo .i {
+	position: absolute;
+	width: 140px;
+	height: 35px;
+	top: 0;
+	left: 0;
+	background: url(http://a.tbcdn.cn/tbsp/img/header/logo.png);
+}
+</style>
+
+</head>
+<body data-spm="1">
+	<div id="page">
+		<!--Header Block-->
+		<div class="header-wrapper">
+			<header class="container">
+				<div class="head-right">
+					<ul class="top-nav">
+						<li class=""><a href="404_error.html" title="我的账户">我的账户</a></li>
+						<li class="my-wishlist"><a href="404_error.html" title="我的收藏">我的收藏</a></li>
+						<li class="contact-us"><a href="contact_us.html" title="联系我们">联系我们</a></li>
+						<li class="checkout"><a href="404_error.html" title="付款">付款</a></li>
+						<li class="log-in"><a href="login.html" title="登录">登录</a></li>
+					</ul>
+					<ul class="currencyBox">
+						<li id="header_currancy" class="currency"><a
+							class="mainCurrency" href="#">币种: RMB</a>
+							<div id="currancyBox" class="currency_detial">
+								<a href="#">￥</a> <a href="#"></a> <a href="#">$</a>
+							</div></li>
+					</ul>
+					<section class="header-bottom">
+						<div class="cart-block">
+							<ul>
+								<li>(2)</li>
+								<li><a href="cart.html" title="Cart"><img title="Item"
+										alt="Item" src="../images/item_icon.png" /></a></li>
+								<li>Item</li>
+							</ul>
+							<div id="minicart" class="remain_cart" style="display: none;">
+								<p class="empty">购物车中有(2)件商品</p>
+								<ol>
+									<li>
+										<div class="img-block">
+											<img src="../images/small_img.png" title="" alt="" />
+										</div>
+										<div class="detail-block">
+											<h4>
+												<a href="#" title="Htc Mobile 1120">Htc Mobile 1120</a>
+											</h4>
+											<p>
+												<strong>1</strong> x $900.00
+											</p>
+											<a href="#" title="Details">Details</a>
+										</div>
+										<div class="edit-delete-block">
+											<a href="#" title="编辑"><img src="../images/edit_icon.png"
+												alt="编辑" title="编辑" /></a> <a href="#" title="删除"><img
+												src="../images/delete_item_btn.png" alt="删除" title="删除" /></a>
+										</div>
+									</li>
+									<li>
+										<div class="img-block">
+											<img src="../images/small_img.png" title="" alt="" />
+										</div>
+										<div class="detail-block">
+											<h4>
+												<a href="#" title="Htc Mobile 1120">Htc Mobile 1120</a>
+											</h4>
+											<p>
+												<strong>1</strong> x $900.00
+											</p>
+											<a href="#" title="Details">Details</a>
+										</div>
+										<div class="edit-delete-block">
+											<a href="#" title="编辑"><img src="../images/edit_icon.png"
+												alt="编辑" title="编辑" /></a> <a href="#" title="删除"><img
+												src="../images/delete_item_btn.png" alt="删除" title="删除" /></a>
+										</div>
+									</li>
+									<li>
+										<div class="total-block">
+											总计：<span>￥1,900.00</span>
+										</div> <a href="cart.html" title="付款" class="orange-btn">付款</a>
+										<div class="clear"></div>
+									</li>
+								</ol>
+							</div>
+						</div>
+						<div class="search-block">
+							<input type="text" placeholder="搜索商品" /> <input type="submit"
+								value="搜索" title="搜索商品" />
+						</div>
+					</section>
+				</div>
+				<h1 class="logo">
+					<a href="index.html" title="Logo"> <img title="Logo" alt="Logo"
+						src="../images/logo.jpg" />
+					</a>
+				</h1>
+				<nav id="smoothmenu1" class="ddsmoothmenu mainMenu">
+					<ul id="nav">
+						<li class="active"><a href="index.html" title="Home">首页</a></li>
+						<li class=""><a href="category.html" title="商品类别">商品类别</a>
+							<ul>
+								<li><a href="category.html">女装</a></li>
+								<li><a href="category.html">男装</a></li>
+								<li><a href="category.html">饰品</a></li>
+								<li><a href="category.html">移动设备</a>
+									<ul>
+										<li><a href="category.html">二级类别</a></li>
+										<li><a href="category.html">二级类别</a></li>
+										<li><a href="category.html">二级类别</a></li>
+										<li><a href="category.html">二级类别</a></li>
+										<li><a href="category.html">二级类别</a></li>
+										<li><a href="category.html">二级类别</a></li>
+									</ul></li>
+								<li><a href="category.html">鞋</a></li>
+								<li><a href="category.html">其他</a></li>
+							</ul></li>
+						<li class=""><a href="blog.html" title="博客">博客</a></li>
+						<li class=""><a href="faq.html" title="FAQ">FAQ</a></li>
+						<li class=""><a href="about_us.html" title="关于我们">关于我们</a></li>
+						<li class=""><a href="404_error.html" title="Pages">Pages</a></li>
+						<li class=""><a href="contact_us.html" title="联系我们">联系我们</a></li>
+					</ul>
+				</nav>
+
+				<div class="mobMenu">
+					<h1>
+						<span>菜单</span> <a class="menuBox highlight"
+							href="javascript:void(0);">ccc</a> <span class="clearfix"></span>
+					</h1>
+					<div id="menuInnner" style="display: none;">
+						<ul class="accordion">
+							<li class="active"><a href="index.html" title="主页">主页</a></li>
+							<li class="parent"><a href="category.html" title="类别">类别</a>
+								<ul>
+									<li><a href="category.html">女装</a></li>
+									<li><a href="category.html">男装</a></li>
+									<li><a href="category.html">饰品</a></li>
+									<li><a href="category.html">移动设备</a>
+										<ul>
+											<li><a href="category.html">二级类别</a></li>
+											<li><a href="category.html">二级类别</a></li>
+											<li><a href="category.html">二级类别</a></li>
+											<li><a href="category.html">二级类别</a></li>
+											<li><a href="category.html">二级类别</a></li>
+											<li><a href="category.html">二级类别</a></li>
+										</ul></li>
+									<li><a href="category.html">鞋</a></li>
+									<li><a href="category.html">其他</a></li>
+								</ul></li>
+							<li class=""><a href="blog.html" title="博客">博客</a></li>
+							<li class=""><a href="faq.html" title="Faq">Faq</a></li>
+							<li class=""><a href="about_us.html" title="关于我们">关于我们</a></li>
+							<li class=""><a href="404_error.html" title="Pages">Pages</a></li>
+							<li class=""><a href="contact_us.html" title="联系我们">联系我们</a></li>
+							<span class="clearfix"></span>
+						</ul>
+
+					</div>
+				</div>
+
+			</header>
+		</div>
+		<div id="content" class="grid-c">
+			<div id="address" class="address" style="margin-top: 20px;"
+				data-spm="2">
+				<form name="addrForm" id="addrForm" action="">
+					<h3>
+						确认收货地址 <span class="manage-address"> <a href="#"
+							title="管理我的收货地址" class="J_MakePoint">管理收货地址</a>
+						</span>
+					</h3>
+					<ul id="address-list" class="address-list">
+						<li class="J_Addr J_MakePoint clearfix  J_DefaultAddr "><s
+							class="J_Marker marker"></s> <span class="marker-tip">寄送至</span>
+							<div class="address-info">
+								<a href="#" class="J_Modify modify J_MakePoint">修改本地址</a> <input
+									name="address" class="J_MakePoint " type="radio" value=""
+									id="addrId_674944241" checked="checked"> <label
+									class="user-address"> 天津市东丽区西七道26号东软大厦 （远哥收）<em>13512298789</em>
+								</label> <em class="tip" style="display: none">默认地址</em> <a
+									class="J_DefaultHandle set-default J_MakePoint" href="#"
+									style="display: none">设置为默认收货地址</a>
+							</div></li>
+						<li class="J_Addr J_MakePoint clearfix"><s
+							class="J_Marker marker"></s> <span class="marker-tip">寄送至</span>
+							<div class="address-info">
+								<a href="#" class="J_Modify modify J_MakePoint"
+									data-point-url="#">修改本地址</a> <input name="address"
+									class="J_MakePoint" type="radio" value="594209677"
+									id="addrId_594209677" data-point-url="#" ah:params="#">
+								<label for="addrId_594209677" class="user-address">
+									天津市东丽区西七道26号东软大厦 （远哥收）<em>13512298789</em>
+								</label><em class="tip" style="display: none">默认地址</em> <a
+									class="J_DefaultHandle set-default J_MakePoint"
+									style="display: none" data-point-url="#" href="#">设置为默认收货地址</a>
+							</div></li>
+					</ul>
+					<ul id="J_MoreAddress" class="address-list hidden">
+					</ul>
+					<div class="address-bar">
+						<a href="#" class="new J_MakePoint" id="J_NewAddressBtn">使用新地址</a>
+					</div>
+				</form>
+			</div>
+			<form id="J_Form" name="J_Form" action="" method="post">
+				<div>
+					<h3 class="dib">确认订单信息</h3>
+					<table cellspacing="0" cellpadding="0" class="order-table"
+						id="J_OrderTable" summary="统一下单订单信息区域">
+						<caption style="display: none">统一下单订单信息区域</caption>
+						<thead>
+							<tr>
+								<th class="s-title">店铺宝贝<hr /></th>
+								<th class="s-price">单价(元)<hr /></th>
+								<th class="s-amount">数量<hr /></th>
+								<th class="s-agio">优惠方式(元)<hr /></th>
+								<th class="s-total">小计(元)<hr /></th>
+							</tr>
+						</thead>
+						<tbody data-spm="3" class="J_Shop" data-tbcbid="0"
+							data-outorderid="47285539868" data-isb2c="false"
+							data-postMode="2" data-sellerid="1704508670" 
+							
+							id="orderBody">
+							
+<!--****************************************** 修改 *************************************-->
+<!-- 					
+ <tr class='item'>
+	<td class='s-title'>
+		<a href='#' target='_blank' title='iPhone X' class='J_MakePoint'> 
+			<img src='' class='itempic'>
+			<span class='title J_MakePoint'>iPhone X</span>
+		</a>
+	
+		<div class='props'>
+			<span>机身颜色: 黑 </span> <span>手机套餐: 套餐二 </span> <span>机身内存: 4G </span> 
+			<span>版本: 中国大陆 </span>
+		</div> 
+		<a title='消费者保障服务，卖家承诺商品如实描述' href='#' target='_blank'> 
+			<img src='http://img03.taobaocdn.com/tps/i3/T1bnR4XEBhXXcQVo..-14-16.png' />
+		</a>
+		<div>
+			<span style='color: gray;'>卖家承诺72小时内发货</span>
+		</div>
+	</td>
+	<td class='s-price'>
+		<span class='price '> 
+			<em class='style-normal-small-black J_ItemPrice'>7899.00</em>
+		</span>
+	</td>
+	<td class='s-amount' data-point-url=''>1</td>
+	<td class='s-agio'>
+		<div class='J_Promotion promotion' data-point-url=''>无优惠</div>
+	</td>
+	<td class='s-total'>
+		<span class='price '> 
+			<em class='style-normal-bold-red J_ItemTotal '>7899.00</em>
+		</span>
+	</td>
+</tr>
+  -->
+ <!-- ================================================================================ -->
+							<tr class="item-service">
+								<td colspan="5" class="servicearea" style="display: none"></td>
+							</tr>
+							<tr class="blue-line" style="height: 2px;">
+								<td colspan="5"></td>
+							</tr>
+							<tr class="other other-line">
+								<td colspan="5">
+									<ul class="dib-wrap">
+										<li class="dib user-info">
+											<ul class="wrap">
+												<li>
+													<div class="field gbook">
+														<label class="label">给卖家留言：</label>
+														<textarea style="width: 350px; height: 80px;"
+															title="选填：对本次交易的补充说明（建议填写已经和卖家达成一致的说明）" name=""></textarea>
+													</div>
+												</li>
+											</ul>
+										</li>
+										<li class="dib extra-info">
+											<div class="shoparea">
+												<ul class="dib-wrap">
+													<li class="dib title">店铺优惠：</li>
+													<li class="dib sel"><div
+															class="J_ShopPromo J_Promotion promotion clearfix"
+															data-point-url="http://log.mmstat.com/buy.1.16"></div></li>
+													<li class="dib fee"><span class='price '> -<em
+															class="style-normal-bold-black J_ShopPromo_Result">0.00</em>
+													</span></li>
+												</ul>
+											</div>
+											<div class="shoppointarea"></div>
+											<div class="farearea">
+												<ul class="dib-wrap J_farearea">
+													<li class="dib title">运送方式：</li>
+													<li class="dib sel"
+														data-point-url="http://log.mmstat.com/jsclick?cache=*&tyxd=wlysfs">
+														<select name="1704508670:2|post" class="J_Fare">
+															<option value="" selected="selected">快递 15.00元 </option>
+															<option value="">EMS 25.00元 </option>
+															<option value="">平邮 15.00元 </option>
+													</select><em tabindex="0" class="J_FareFree" style="display: none">免邮费</em>
+													</li>
+													<li class="dib fee"><span class='price '> <em
+															class="style-normal-bold-red J_FareSum">30.00</em>
+													</span></li>
+												</ul>
+											</div>
+											<div class="extra-area">
+												<ul class="dib-wrap">
+													<li class="dib title">发货时间：</li>
+													<li class="dib content">卖家承诺订单在买家付款后，72小时内<a href="#">发货</a></li>
+												</ul>
+											</div>
+
+											<div class="servicearea" style="display: none"></div>
+										</li>
+									</ul>
+								</td>
+							</tr>
+
+							<tr class="shop-total blue-line">
+								<td colspan="5">店铺合计(<span class="J_Exclude"
+									style="display: none">不</span>含运费<span class="J_ServiceText"
+									style="display: none">，服务费</span>)： <span
+									class='price g_price '> <span>&yen;</span><em
+										class="style-middle-bold-red J_ShopTotal">7899.00</em>
+								</span> <input type="hidden" name="1704508670:2|creditcard"
+									value="false" /> <input type="hidden" id="J_IsLadderGroup"
+									name="isLadderGroup" value="false" />
+
+								</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="5">
+									<div class="order-go" data-spm="4">
+										<div class="J_AddressConfirm address-confirm">
+											<div class="kd-popup pop-back" style="margin-bottom: 40px;">
+												<div class="box">
+													<div class="bd">
+														<div class="point-in">
+															<em class="t">实付款：</em> <span class='price g_price '>
+																<span>&yen;</span><em class="style-large-bold-red"
+																id="J_ActualFee"></em>
+															</span>
+														</div>
+
+														<ul>
+															<li><em>寄送至:</em><span id="J_AddrConfirm"
+																style="word-break: break-all;">天津市东丽区西七道26号东软大厦 </span></li>
+															<li><em>收货人:</em><span id="J_AddrNameConfirm">远哥
+																	13512298789 </span></li>
+														</ul>
+													</div>
+												</div>
+												<a href="cart.html" class="back J_MakePoint" target="_top"
+													data-point-url="">返回购物车</a> <a id="J_Go" class=" btn-go"
+													data-point-url="" tabindex="0" title="点击此按钮，提交订单。">提交订单<b
+													class="dpl-button"></b></a>
+											</div>
+										</div>
+
+										<div class="J_confirmError confirm-error">
+											<div class="msg J_shopPointError" style="display: none;">
+												<p class="error">积分点数必须为大于0的整数</p>
+											</div>
+										</div>
+
+
+										<div class="msg" style="clear: both;">
+											<p class="tips naked" style="float: right; padding-right: 0">若价格变动，请在提交订单后联系卖家改价，并查看已买到的宝贝</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</form>
+		</div>
+
+
+	</div>
+	<!--页脚开始-->
+	<section class="footer-wrapper">
+		<footer class="container">
+			<div class="link-block">
+				<ul>
+					<li class="link-title"><a href="about_us.html" title="关于我们">关于我们</a></li>
+					<li><a href="about_us.html" title="关于我们">关于我们</a></li>
+					<li><a href="#" title="用户服务">用户服务</a></li>
+					<li><a href="#" title="隐私策略">隐私策略</a></li>
+				</ul>
+				<ul>
+					<li class="link-title"><a href="#" title="客户服务">客户服务</a></li>
+					<li><a href="#" title="退货/换货">退货/换货</a></li>
+					<li><a href="#" title="购物保障">购物保障</a></li>
+					<li><a href="contact_us.html" title="联系我们">联系我们</a></li>
+				</ul>
+				<ul>
+					<li class="link-title"><a href="#" title="条款和条件">条款和条件</a></li>
+					<li><a href="#" title="驿站">驿站</a></li>
+					<li><a href="#" title="帮助">帮助</a></li>
+					<li><a href="#" title="Terms & Conditions">Terms &
+							Conditions</a></li>
+				</ul>
+				<ul>
+					<li class="link-title"><a href="#" title="关于我们">关于我们</a></li>
+					<li class="aboutus-block">Lorem ipsum dolor sit amet,
+						consectetur adipiscing elit. Vivamus sit amet ligula lectus, a
+						mollis diam. Nulla porttitor pulvinar elit... <a
+						href="about_us.html" title="更多">更多</a>
+					</li>
+				</ul>
+				<ul class="stay-connected-blcok">
+					<li class="link-title"><a href="#" title="保持联系">保持联系</a></li>
+					<li>
+						<ul class="social-links">
+							<li><a data-tooltip="Like us on facebook" href="#"><img
+									alt="facebook" src="../images/facebook.png"></a></li>
+							<li><a data-tooltip="Subscribe to RSS feed" href="#"><img
+									alt="RSS" src="../images/rss.png"></a></li>
+							<li><a data-tooltip="Follow us on twitter" href="#"><img
+									alt="twitter" src="../images/twitter.png"></a></li>
+							<li><a data-tooltip="Follow us on Dribbble" href="#"><img
+									alt="dribbble" src="../images/dribbble.png"></a></li>
+							<li><a data-tooltip="Follow us on Youtube" href="#"><img
+									alt="youtube" src="../images/youtube.png"></a></li>
+							<li><a data-tooltip="Follow us on skype" href="#"><img
+									alt="skype" src="../images/skype.png"></a></li>
+						</ul>
+						<div class="payment-block">
+							<img src="../images/payment.png" alt="payment">
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="footer-bottom-block">
+				<ul class="bottom-links">
+					<li><a href="index-2.html" title="主页">主页</a></li>
+					<li><a href="#" title="Pages">PAGES</a></li>
+					<li><a href="about_us.html" title="关于">关于</a></li>
+					<li><a href="contact_us.html" title="联系我们">联系我们</a></li>
+				</ul>
+				<p class="copyright-block">
+					Copyright &copy; 2017.杨帆远航技术有限公司.<a target="_blank"
+						href="http://www.yfyh.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
+				</p>
+			</div>
+		</footer>
+	</section>
+	<!--页脚结束-->
+</body>
+
+<script type="text/javascript">
+
+/**
+ <tr class='item'>
+	<td class='s-title'>
+		<a href='#' target='_blank' title='iPhone X' class='J_MakePoint'> 
+			<img src='' class='itempic'>
+			<span class='title J_MakePoint'>iPhone X</span>
+		</a>
+	
+		<div class='props'>
+			<span>机身颜色: 黑 </span> <span>手机套餐: 套餐二 </span> <span>机身内存: 4G </span> 
+			<span>版本: 中国大陆 </span>
+		</div> 
+		<a title='消费者保障服务，卖家承诺商品如实描述' href='#' target='_blank'> 
+			<img src='http://img03.taobaocdn.com/tps/i3/T1bnR4XEBhXXcQVo..-14-16.png' />
+		</a>
+		<div>
+			<span style='color: gray;'>卖家承诺72小时内发货</span>
+		</div>
+	</td>
+	<td class='s-price'>
+		<span class='price '> 
+			<em class='style-normal-small-black J_ItemPrice'>7899.00</em>
+		</span>
+	</td>
+	<td class='s-amount' data-point-url=''>1</td>
+	<td class='s-agio'>
+		<div class='J_Promotion promotion' data-point-url=''>无优惠</div>
+	</td>
+	<td class='s-total'>
+		<span class='price '> 
+			<em class='style-normal-bold-red J_ItemTotal '>7899.00</em>
+		</span>
+	</td>
+</tr>
+ */
+
+//订单详情
+	 function ShowCartList() {
+		$("#orderBody").empty();
+		var trCart = $("<tr class='first'><td colspan='5'></td></tr>");
+		$("#orderBody").append(trCart);
+		var trCart = $("<tr class='shop blue-line'><td colspan='3'>店铺：<a class='J_ShopName J_MakePoint' href='#' title='海哥的小商店'>海哥旗舰店</a> <span class='seller'>卖家：<a href='#' class='J_MakePoint'>海哥</a></span> <span class='J_WangWang' data-nick='海哥' data-display='inline'></span></td><td colspan='2' class='promo'><div><ul class='scrolling-promo-hint J_ScrollingPromoHint'></ul></div></td></tr>");
+		$("#orderBody").append(trCart);
+		
+		$.ajax({
+			type : "POST",
+			url : "/DianShangMaven/portal/cart/list.do",
+			// async : false, 
+			dataType : "Json",
+			success : function(response) {
+				console.log(response);
+				var status = response.status;
+				if (status == 1) {
+					//alert("已成功加入购物车！！！");
+					var cartProducts = response.data.cartProductVolist;
+					console.log(cartProducts);
+					for (var i = 0; i < cartProducts.length; i++) {
+						//console.log(i);
+						console.log("productChecked");
+						console.log(cartProducts[i].productChecked);
+						if(cartProducts[i].productChecked == 1){
+							var trCart = $("<tr class='item'></tr>");
+							
+							trCart.append("<td class='s-title'><a href='#' target='_blank' title='iPhone X' class='J_MakePoint'><img src='"+response.data.imageHost+"/"+cartProducts[i].productMainImage+"' class='itempic'><span class='title J_MakePoint'>"+cartProducts[i].productName+"</span></a><div class='props'><span>描述信息: "+cartProducts[i].productSubtitle+" </span></div> <a title='消费者保障服务，卖家承诺商品如实描述' href='#' target='_blank'><img src='http://localhost:8080/upload/1.jpg' /></a><div><span style='color: gray;'>卖家承诺72小时内发货</span></div></td>");
+							trCart.append("<td class='s-price'><span class='price '><em class='style-normal-small-black J_ItemPrice'>"+ cartProducts[i].productPrice+ "</em></span></td>");
+							trCart.append("<td class='s-amount' data-point-url=''>"+cartProducts[i].quantity+"</td>");
+							trCart.append("<td class='s-agio'><div class='J_Promotion promotion' data-point-url=''>无优惠</div></td>");
+							trCart.append("<td class='s-total'><span class='price '><em class='style-normal-bold-red J_ItemTotal '>"+ cartProducts[i].productTotalPrice+"</em></span></td>");
+							
+							$("#orderBody").append(trCart); 
+						}
+					}
+					$("#J_ActualFee").text(+ response.data.cartTotalPrice);
+
+				} else {
+					alert("账号信息丢失，请重新登录后尝试！！！");
+					window.location.href = "/DianShangMaven/login.html";
+				}
+			}
+		})
+	}
+	
+	ShowCartList(); 
+	
+</script>
+</html>

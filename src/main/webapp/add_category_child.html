@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>添加根类别</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.css" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/toastr.css" />
+<link rel="stylesheet" href="css/fullcalendar.css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.knob.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toastr.js"></script>
+<script src="js/jquery.tablesorter.min.js"></script>
+<script src="js/jquery.peity.min.js"></script>
+<script src="js/fullcalendar.min.js"></script>
+<script src="js/gcal.js"></script>
+<script src="js/setup.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<style type="text/css">
+textarea {
+	resize: none;
+}
+</style>
+</head>
+<body>
+	<!-- header部分 -->
+	<div id="in-nav">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<ul class="pull-right">
+						<li><a href="#">链接1</a></li>
+						<li><a href="#">链接2</a></li>
+						<li><a href="#">链接3</a></li>
+						<li><a href="login.html">登录</a></li>
+					</ul>
+					<a id="logo" href="index.html">
+						<h4>
+							电商平台后台<strong>管理</strong>
+						</h4>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="in-sub-nav">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<ul>
+						<li><a href="index.html" class="active"><i
+								class="batch home"></i><br />主页</a></li>
+						<li><span class="label label-important pull-right">08</span><a
+							href="admins.html"><i class="batch stream"></i><br />管理员列表</a></li>
+						<li><a href="users.html"><i class="batch users"></i><br />用户列表</a></li>
+						<li><a href="categories.html"><i class="batch forms"></i><br />类别列表</a></li>
+						<li><a href="products.html"><i class="batch quill"></i><br />商品列表</a></li>
+						<li><span class="label label-important pull-right">04</span><a
+							href="orders.html"><i class="batch plane"></i><br />订单列表</a></li>
+						<li><a href="anothers.html"><i class="batch calendar"></i><br />其它扩展功能</a></li>
+						<li><a href="settings.html"><i class="batch settings"></i><br />系统设置</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page">
+		<div class="page-container">
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<h4 class="header">添加子类别</h4>
+						<table class="table table-striped sortable">
+							<thead>
+							</thead>
+							<tbody>
+								<tr>
+									<th>类别名称</th>
+									<td><input id="addName" type="text" name="name" /></td>
+								</tr>
+								<tr>
+									<th>所属类别</th>
+									<td><span id="cname"></span></td>
+								</tr>
+
+								<tr>
+									<td></td>
+									<td>
+										<button id="add" class="btn btn-success">
+										添加
+										</button>
+										&nbsp;&nbsp;&nbsp;
+										<input class="btn btn-danger"
+											type="reset" value="重置" />
+									</td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<p class="pull-right">版权所有&nbsp;&nbsp;&nbsp;可以翻版</p>
+					<p>&copy; Copyright 2018 Somnus</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+<script src="js/d3-setup.js"></script>
+<script>
+	protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+	address = protocol + window.location.host + window.location.pathname
+			+ '/ws';
+	socket = new WebSocket(address);
+	socket.onmessage = function(msg) {
+		msg.data == 'reload' && window.location.reload()
+	}
+</script>
+<script type="text/javascript">
+	var result=decodeURI(window.location.href);
+	var result2=result.split("?");
+	$.ajax({
+		url:"manage/category/get_cname.do",
+		type:"get",
+		data:{
+			"cId":result2[1].split("=")[1]
+		},
+		dataType:"json",
+		success:function(response){
+			alert(response.msg);
+			if(response.status==1){
+				$("#cname").text(response.msg);
+				return;
+			}
+			alert("获取父类类别失败！");
+		}
+	})
+	$("#add").click(function(){
+		if(null==$("#addName").val()||""==$("#addName").val()){
+			alert("不能为空");
+			return;
+		}
+		$.ajax({
+			type:"get",
+			url:"manage/category/add_catagory.do",
+			data:{
+				"cName":$("#addName").val(),
+				"pId":result2[1].split("=")[1]
+			},
+			dataType:"json",
+			success:function(response){
+				alert(response.msg);
+				$("#addName").val("");
+			}
+		})
+	});
+</script>
+</html>
